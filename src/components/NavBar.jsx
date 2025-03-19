@@ -5,7 +5,7 @@ import { MdOutlineFavoriteBorder } from "react-icons/md";
 
 export const NavBar = () => {
   return (
-    <div className="fixed top-0 left-0 right-0 bg-opacity-60 backdrop-blur-md bg-white shadow z-10 w-full">
+    <div className="fixed top-0 left-0 right-0 bg-opacity-20 backdrop-blur-md bg-white shadow z-10 w-full">
       <div className="max-w-4xl mx-auto py-4 flex justify-between items-center">
         <NavLink to="/" className="text-lg text-gray-900 font-bold">
           E-shop
