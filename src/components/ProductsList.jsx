@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import productData from '../assets/ProductData.json'
 import { ProductItem } from './ProductItem';
 import axios from 'axios';
 import { ProductLoadSekeleton } from './ProductLoadSekeleton';

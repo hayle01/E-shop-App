@@ -1,13 +1,15 @@
 import React from 'react'
 import { GrFavorite } from "react-icons/gr";
+import { Link } from 'react-router';
 export const ProductItem = ({product}) => {
   return (
-    <div
+    <Link
+      to={`/products/${product.id}`}
       key={product.id}
       className="bg-white relative rounded-lg shadow-sm hover:shadow-lg transition-shadow duration-200 ease-in-out  border border-gray-300"
     >
-      <div className='absolute top-2 right-2 p-2 flex items-center justify-center bg-rose-400 rounded-full'>
-        <GrFavorite size={20} color='white' />
+      <div className="absolute top-2 right-2 p-2 flex items-center justify-center bg-[#363842] rounded-full">
+        <GrFavorite size={20} color="white" />
       </div>
       <img
         src={product.thumbnail}
@@ -35,9 +37,7 @@ export const ProductItem = ({product}) => {
             {"★".repeat(Math.round(5 - product.rating))}
           </span>
         </div>
-
       </div>
-
-    </div>
+    </Link>
   );
 }
