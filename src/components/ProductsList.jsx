@@ -10,7 +10,7 @@ export const ProductsList = () => {
         try {    
           setLoading(true)
           const { data } = await axios.get(
-            "https://dummyjson.com/products?limit=100"
+            "https://dummyjson.com/products/category/laptops?limit=100"
           );
             setProducts(data.products)
             setLoading(false)

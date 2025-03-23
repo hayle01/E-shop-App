@@ -3,9 +3,11 @@ import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router";
 import { GrFavorite } from "react-icons/gr";
 import { MdOutlineReviews } from "react-icons/md";
+import { ProductDetailsSkeleton } from "../components/ProductDetailsSkeleton";
 export const ProductDetails = () => {
   const { productID } = useParams();
   const [product, setProduct] = useState(null);
+  const [mainImage, setMainImage] = useState();
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -14,6 +16,7 @@ export const ProductDetails = () => {
           `https://dummyjson.com/products/${productID}`
         );
         setProduct(data);
+        setMainImage(data.thumbnail);
         console.log(data);
       } catch (error) {
         console.log(error.message);
@@ -27,13 +30,7 @@ export const ProductDetails = () => {
     return new Date(dateString).toLocaleDateString(undefined, options);
   };
 
-  const totalReviews = product?.reviews?.length || 0;
-  const averageRating =
-    totalReviews > 0
-      ? product?.reviews?.reduce((sum, review) => sum + review.rating, 0) /
-        totalReviews
-      : 0;
-
+  
   const ratingCounts = [1, 2, 3, 4, 5].reduce((acc, rating) => {
     acc[rating] = product?.reviews?.filter(
       (review) => review.rating === rating
@@ -43,7 +40,7 @@ export const ProductDetails = () => {
 
   const maxCount = Math.max(...Object.values(ratingCounts), 1);
 
-  if (!product) return <p>Loading....</p>;
+  if (!product) return <ProductDetailsSkeleton />;
 
   return (
     <>
@@ -57,13 +54,14 @@ export const ProductDetails = () => {
       <div className="md:flex mt-6 w-full border-b border-gray-200 py-4">
         <div className="md:mb-0 mb-4 md-w-1/2 pr-4">
           <img
-            src={product.thumbnail}
+            src={mainImage}
             alt={product.title}
             className="object-cover w-full h-96 rounded border border-gray-300 shadow"
           />
           <div className="pt-4 flex items-center space-x-2 overflow-auto">
             {product.images.map((image, idx) => (
               <img
+              onClick={() => setMainImage(image)}
                 key={idx}
                 src={image}
                 alt={product.title}
@@ -76,10 +74,9 @@ export const ProductDetails = () => {
         <div className="md:w-1/2 pl-4">
           <p className="font-light text-gray-700">
             <span className="text-[#191919] font-medium">
-              {" "}
               {product.brand ? "Brand:" : ""}{" "}
             </span>
-            {product.brand}
+            {product.brand ? product.brand : ""}
           </p>
 
           <p className="font-light text-gray-700 pt-2">
@@ -208,7 +205,6 @@ export const ProductDetails = () => {
           </div>
         </div>
       </div>
-      {/* <Tabs />/ */}
     </>
   );
 };
