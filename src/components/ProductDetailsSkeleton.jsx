@@ -109,7 +109,7 @@ export const ProductDetailsSkeleton = () => {
             {Array(5)
               .fill()
               .map((_, i) => (
-                <div className="flex items-center gap-2">
+                <div key={i} className="flex items-center gap-2">
                   <div className="w-8 h-8 rounded bg-gradient-to-r from-gray-200 to-gray-300"></div>
                   <div className="w-[75%] h-8 rounded bg-gradient-to-r from-gray-200 to-gray-300"></div>
                   <div className="w-8 h-8 rounded bg-gradient-to-r from-gray-200 to-gray-300"></div>

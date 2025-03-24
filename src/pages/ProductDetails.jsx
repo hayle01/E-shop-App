@@ -1,10 +1,13 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, useParams } from "react-router";
 import { GrFavorite } from "react-icons/gr";
 import { MdOutlineReviews } from "react-icons/md";
 import { ProductDetailsSkeleton } from "../components/ProductDetailsSkeleton";
+import { ShopContext } from "../utility/ShopContext";
 export const ProductDetails = () => {
+  const { AddToCart,  } = useContext(ShopContext);
+
   const { productID } = useParams();
   const [product, setProduct] = useState(null);
   const [mainImage, setMainImage] = useState();
@@ -17,7 +20,7 @@ export const ProductDetails = () => {
         );
         setProduct(data);
         setMainImage(data.thumbnail);
-        console.log(data);
+       
       } catch (error) {
         console.log(error.message);
       }
@@ -61,7 +64,7 @@ export const ProductDetails = () => {
           <div className="pt-4 flex items-center space-x-2 overflow-auto">
             {product.images.map((image, idx) => (
               <img
-              onClick={() => setMainImage(image)}
+                onClick={() => setMainImage(image)}
                 key={idx}
                 src={image}
                 alt={product.title}
@@ -120,12 +123,12 @@ export const ProductDetails = () => {
           </div>
 
           <div className="flex items-center space-x-2 mt-8">
-            <Link
-              to="#"
-              className="w-3/4 py-3 text-center text-white rounded  bg-[#363842] hover:bg-[#363849] transition-colors duration-200 ease-in-out shadow"
+            <button
+              onClick={() => AddToCart(product)}
+              className="w-3/4 py-3 text-center text-white rounded  bg-[#363842] hover:bg-[#363849] transition-colors duration-200 ease-in-out cursor-pointer shadow"
             >
               Add to Cart
-            </Link>
+            </button>
             <Link
               to="#"
               className="w-1/4 flex items-center justify-center py-3 text-center text-white rounded  bg-[#363842] hover:bg-[#363849] transition-colors duration-200 ease-in-out shadow"

@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import { NavLink } from "react-router";
 import { PiShoppingCartLight } from "react-icons/pi";
 import { MdOutlineFavoriteBorder } from "react-icons/md";
+import { ShopContext } from "../utility/ShopContext";
 
 export const NavBar = () => {
+  const {products} = useContext(ShopContext);
   return (
     <div className="fixed top-0 left-0 right-0 bg-opacity-60 backdrop-blur-sm bg-white shadow z-10 w-full">
       <div className="max-w-4xl mx-auto py-4 flex justify-between items-center">
@@ -46,7 +48,7 @@ export const NavBar = () => {
             <PiShoppingCartLight size={20} />
 
             <span className="absolute -top-1 -right-1 h-4 w-4 text-white text-xs flex items-center justify-center bg-[#363842] rounded-full">
-              0
+             {products?.length || 0}
             </span>
           </NavLink>
           <NavLink to="whishlist">
