@@ -1,9 +1,8 @@
 import React from 'react'
-import { ProductLoadSekeleton } from '../components/ProductLoadSekeleton'
-import { ProductDetailsSkeleton } from '../components/ProductDetailsSkeleton'
+import { ProductsList } from '../components/ProductsList'
 
 export const Home = () => {
   return (
-    <ProductDetailsSkeleton />
+    <ProductsList />
   )
 }
