@@ -1,22 +1,15 @@
-import React, { useContext, useState } from 'react'
-import { LuTrash, LuTrash2 } from 'react-icons/lu';
+import { LuTrash } from 'react-icons/lu';
 import { EmptyCart } from '../components/EmptyCart';
-import { ShopContext } from '../utility/ShopContext';
+import { UseShop } from '../utility/UseShop';
 
 export const Cart = () => {
- const { products, removeFromCart } = useContext(ShopContext);
-
-  const [Quantity, setQuantity] = useState(0);
-
-  const handleIncreaseQuantity = ({product}) => {
-    // const updatedProduct = product.qu
-    setQuantity((prev) => prev + 1)
-  }
+ const { products, removeFromCart, total, UpdateProductQuantity } =
+   UseShop();
 
   if(!products) return <EmptyCart />;
   return (
     <>
-      {products.length > 0 && (
+      {products.length > 0 ? (
         <div className="flex flex-col space-y-4 w-full">
           <div className="w-full flex items-center sm:flex-wrap md:justify-between md:gap-4 gap-2 py-4 border-b border-gray-200">
             <div className="flex-1">
@@ -62,19 +55,23 @@ export const Cart = () => {
               <div className="w-1/2 flex items-center space-x-2 justify-between">
                 <span className="text-md text-gray-800">$ {product.price}</span>
 
-                <div className="flex items-center justify-center space-x-4 bg-[#F6F7F8] rounded py-1 px-3 mr-6">
-                  <button className="text-gray-800 text-md cursor-pointer">
-                    -
-                  </button>
-                  <span className="text-gray-800 text-md">{Quantity}</span>
-                  <button
-                    onClick={() => handleIncreaseQuantity(product.id)}
-                    className="text-gray-800 text-md cursor-pointer"
-                  >
-                    +
-                  </button>
-                </div>
-                <span className="text-md text-gray-800">$ {product.price}</span>
+                <input
+                  type="number"
+                  className="w-16 h-10 border border-gray-200 rounded text-center"
+                  onChange={(e) =>
+                    UpdateProductQuantity(product, e.target.value)
+                  }
+                  defaultValue={product.quantity}
+                />
+
+                <span className="text-md text-gray-800">$
+                 {/* product subtotal price */}
+                  {(product.price *
+                    product.quantity).toLocaleString(undefined, {
+                      minimumFractionDigits: 2,
+                      maximumFractionDigits: 2,
+                    })}
+                </span>
               </div>
             </div>
           ))}
@@ -86,7 +83,12 @@ export const Cart = () => {
                 {/* subtotal */}
                 <div className="flex items-center justify-between gap-1">
                   <span className="text-gray-600">Subtotal</span>
-                  <span className="text-gray-800 font-medium">$ 870</span>
+                  <span className="text-gray-800 font-medium"> $ 
+                    {total.toLocaleString(undefined, {
+                      minimumFractionDigits: 2,
+                      maximumFractionDigits: 2,
+                    })}
+                  </span>
                 </div>
 
                 {/* shipping */}
@@ -109,8 +111,11 @@ export const Cart = () => {
                   <span className="font-semibold text-lg text-gray-800">
                     Total
                   </span>
-                  <span className="font-semibold text-lg text-gray-800">
-                    $ 890
+                  <span className="font-semibold text-lg text-gray-800">$
+                    {total.toLocaleString(undefined, {
+                      minimumFractionDigits: 2,
+                      maximumFractionDigits: 2,
+                    })}
                   </span>
                 </div>
 
@@ -121,6 +126,8 @@ export const Cart = () => {
             </div>
           </div>
         </div>
+      ) : (
+        <EmptyCart />
       )}
     </>
   );
