@@ -1,7 +1,7 @@
-export const InitialState = {
-    products: [],
-    total: 0,
-}
+export const InitialState = JSON.parse(localStorage.getItem("cart-items")) || {
+  products: [],
+  total: 0,
+};
 
 export const ShopReducer = (state, action) => {
     

@@ -1,10 +1,16 @@
-import {createContext, useReducer } from "react";
+import {createContext, useEffect, useReducer } from "react";
 import { ShopReducer, InitialState } from "./ShopReducer";
 
 export const ShopContext = createContext(InitialState);
 
 export const ShopProvider = ({children}) => {
     const [state, dispatch] = useReducer(ShopReducer, InitialState);
+
+    useEffect(() => {
+      localStorage.setItem("cart-items", JSON.stringify({total: state
+        .total, products: state.products
+      }))
+    }, [state])
 
      const calculateTotalPrice = (products) => {
        let total = 0;
@@ -15,7 +21,7 @@ export const ShopProvider = ({children}) => {
        dispatch({
          type: "CALCULATE_TOTAL_PRICE",
          payload: {
-           products: total,
+           total
          },
        });
      };
@@ -33,8 +39,6 @@ export const ShopProvider = ({children}) => {
 
         calculateTotalPrice(updatedProducts);
 
-        console.log( "This is the products you added cart",updatedProducts);
-
         dispatch({
           type: "ADD_TO_CART",
           payload: {
@@ -49,7 +53,7 @@ export const ShopProvider = ({children}) => {
 
     let updatedProducts = [...state.products];
 
-    if (newQuantity >= 0) {
+    if (newQuantity <= 0) {
       updatedProducts = updatedProducts.filter((p) => p.id !== product.id);
     } else {
       updatedProducts[productIndex] = {
@@ -61,7 +65,9 @@ export const ShopProvider = ({children}) => {
     calculateTotalPrice(updatedProducts);
     dispatch({
       type: "UPDATE_PRODUCT_QUANTITY",
-      payload: updatedProducts,
+      payload: {
+        products: updatedProducts
+      }
     });
   };
 
@@ -70,7 +76,12 @@ export const ShopProvider = ({children}) => {
 
     calculateTotalPrice(updatedProduct);
 
-    dispatch({ type: "REMOVE_FROM_CART", payload: updatedProduct});
+    dispatch({
+      type: "REMOVE_FROM_CART",
+      payload: {
+        products: updatedProduct
+      },
+    });
   }
 
   const ClearCart = (product) => {
