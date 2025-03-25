@@ -1,12 +1,12 @@
 import axios from "axios";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router";
 import { GrFavorite } from "react-icons/gr";
 import { MdOutlineReviews } from "react-icons/md";
 import { ProductDetailsSkeleton } from "../components/ProductDetailsSkeleton";
-import { ShopContext } from "../utility/ShopContext";
+import { UseShop } from "../utility/UseShop";
 export const ProductDetails = () => {
-  const { AddToCart,  } = useContext(ShopContext);
+  const { AddToCart,  } = UseShop();
 
   const { productID } = useParams();
   const [product, setProduct] = useState(null);
