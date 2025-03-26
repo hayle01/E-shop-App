@@ -1,12 +1,69 @@
-# React + Vite
+# E-shop
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Overview
 
-Currently, two official plugins are available:
+E-shop is a modern e-commerce platform that allows users to browse products, add items to their cart, and proceed with a seamless checkout process. The project is built using React.js and utilizes context API for state management.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
 
-## Expanding the ESLint configuration
+- Browse and view products with detailed descriptions.
+- Add products to the shopping cart.
+- Update product quantity in the cart.
+- Remove products from the cart.
+- Calculate total price dynamically.
+- Apply discounts and coupons (if applicable).
+- Checkout process for order completion.
 
-If you are developing a production application, we recommend using TypeScript and enable type-aware lint rules. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Technologies Used
+
+- React.js
+- CSS & Tailwind CSS (for styling)
+- LocalStorage (for temporary cart data persistence)
+
+## Installation
+
+1. Clone the repository:
+
+   ```sh
+   git clone https://github.com/hayle01/E-shop-App.git
+   ```
+
+2. Navigate to the project directory:
+
+   ```sh
+   cd e-shop
+   ```
+
+3. Install dependencies:
+
+   ```sh
+   npm install
+   ```
+
+4. Start the development server:
+
+   ```sh
+   npm start
+   ```
+
+## Usage
+
+- Open `http://localhost:3000/` in your browser.
+- Browse available products.
+- Click 'Add to Cart' to add items.
+- View your cart and modify quantities.
+- Proceed to checkout for order confirmation.
+
+## Future Enhancements
+
+- Integration with a backend API for product data.
+- User authentication and order tracking.
+- Payment gateway integration.
+
+## License
+
+This project is licensed under the MIT License.
+
+## Author
+
+Developed by Hayle. Contributions are welcome!
